@@ -44,21 +44,20 @@ class SettingsGradleModificationService(
             ?: throw IllegalStateException(
                 "Can't find `$SETTINGS_GRADLE_FILENAME` or `$SETTINGS_GRADLE_KTS_FILENAME` file in root module"
             )
-        handleSettingsGradleFile(settingsGradlePsiFile, moduleName, moduleRelativePath)
+        handleSettingsGradleFile(settingsGradlePsiFile, moduleRelativePath.replace("/", ":"))
     }
 
     private fun handleSettingsGradleFile(
         settingsGradlePsiFile: PsiFile,
-        moduleName: String,
-        moduleRelativePath: String
+        moduleName: String
     ) {
         when (settingsGradlePsiFile) {
             is KtFile -> {
-                settingsGradlePsiFile.addModuleDescription(moduleName, moduleRelativePath)
+                settingsGradlePsiFile.addModuleDescription(moduleName)
             }
 
             is GroovyFile -> {
-                settingsGradlePsiFile.addModuleDescription(moduleName, moduleRelativePath)
+                settingsGradlePsiFile.addModuleDescription(moduleName)
             }
 
             else -> {
@@ -68,7 +67,6 @@ class SettingsGradleModificationService(
                     file name: ${settingsGradlePsiFile.name}    
                     file path: ${settingsGradlePsiFile.virtualFile.canonicalPath}
                     module name: $moduleName
-                    module relative path: $moduleRelativePath
                 """
                 )
             }
@@ -76,8 +74,7 @@ class SettingsGradleModificationService(
     }
 
     private fun KtFile.addModuleDescription(
-        moduleName: String,
-        moduleRelativePath: String
+        moduleName: String
     ) {
         val factory = KtPsiFactory(project)
 
@@ -86,15 +83,12 @@ class SettingsGradleModificationService(
                 add(factory.createNewLine())
                 add(factory.getIncludeModuleExpression(moduleName))
                 add(factory.createNewLine())
-                add(factory.getIncludeModuleRelativePathSetupElement(moduleName, moduleRelativePath))
-                add(factory.createNewLine())
             }
         }
     }
 
     private fun GroovyFile.addModuleDescription(
-        moduleName: String,
-        moduleRelativePath: String
+        moduleName: String
     ) {
         val factory = GroovyPsiElementFactory.getInstance(project)
 
@@ -102,8 +96,6 @@ class SettingsGradleModificationService(
             with(this) {
                 add(factory.createNewLine())
                 add(factory.getIncludeModuleExpressionElement(moduleName))
-                add(factory.createNewLine())
-                add(factory.getIncludeModuleRelativePathSetupElement(moduleName, moduleRelativePath))
                 add(factory.createNewLine())
             }
         }

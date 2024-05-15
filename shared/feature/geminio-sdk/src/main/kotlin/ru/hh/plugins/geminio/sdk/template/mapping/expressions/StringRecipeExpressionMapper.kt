@@ -22,13 +22,7 @@ import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionComma
 import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionCommand.RootOut
 import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionCommand.SrcOut
 import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionModifier
-import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionModifier.ACTIVITY_TO_LAYOUT
-import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionModifier.CAMEL_CASE_TO_UNDERLINES
-import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionModifier.CLASS_TO_RESOURCE
-import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionModifier.FRAGMENT_TO_LAYOUT
-import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionModifier.LAYOUT_TO_ACTIVITY
-import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionModifier.LAYOUT_TO_FRAGMENT
-import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionModifier.UNDERSCORE_TO_CAMEL_CASE
+import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionModifier.*
 import ru.hh.plugins.geminio.sdk.template.aliases.AndroidStudioTemplateParameter
 import ru.hh.plugins.geminio.sdk.template.aliases.AndroidStudioTemplateParameterStringLambda
 import ru.hh.plugins.geminio.sdk.template.aliases.AndroidStudioTemplateStringParameter
@@ -160,6 +154,8 @@ private fun String.applyModifiers(modifiers: List<RecipeExpressionModifier>): St
             LAYOUT_TO_ACTIVITY -> layoutToActivity(result)
             LAYOUT_TO_FRAGMENT -> layoutToFragment(result)
             UNDERSCORE_TO_CAMEL_CASE -> underscoreToCamelCase(result)
+            CAMEL_CASE_TO_LOWER_CAMEL_CASE -> result.first().lowercase() + result.substring(1)
+            NOT -> result
         }
     }
     return result

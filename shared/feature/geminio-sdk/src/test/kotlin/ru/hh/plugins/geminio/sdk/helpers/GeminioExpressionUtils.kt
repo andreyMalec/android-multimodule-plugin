@@ -1,5 +1,6 @@
 package ru.hh.plugins.geminio.sdk.helpers
 
+import com.android.ide.common.repository.AgpVersion
 import com.android.tools.idea.wizard.template.ApiTemplateData
 import com.android.tools.idea.wizard.template.ApiVersion
 import com.android.tools.idea.wizard.template.Category
@@ -41,59 +42,61 @@ internal object GeminioExpressionUtils {
     }
 
     fun createModuleTemplateData(): ModuleTemplateData {
-        return ModuleTemplateData(
-            projectTemplateData = ProjectTemplateData(
-                androidXSupport = true,
-                gradlePluginVersion = "6.3",
-                sdkDir = File("/AndroidSdk"),
-                language = Language.Kotlin,
-                kotlinVersion = "1.4.10",
-                rootDir = File("/Project"),
-                applicationPackage = "com.example.myapplication",
-                includedFormFactorNames = mapOf(
-                    FormFactor.Mobile to listOf("mobile")
-                ),
-                debugKeystoreSha1 = null,
-                overridePathCheck = false,
-                isNewProject = false
-            ),
-            srcDir = File("/Project/src/main/kotlin/com/example/mylibrary/"),
-            resDir = File("/Project/src/main/res/"),
-            manifestDir = File("/Project/src/main/"),
-            testDir = File("/Project/src/test/"),
-            unitTestDir = File("/Project/src/test/kotlin/"),
-            aidlDir = File("/Project/src/main/aidl/"),
-            rootDir = File("/Project/"),
-            isNewModule = false,
-            name = "mylibrary",
-            isLibrary = true,
-            packageName = "com.example.mylibrary",
-            formFactor = FormFactor.Mobile,
-            themesData = ThemesData(
-                appName = "MyApplication"
-            ),
-            baseFeature = null,
-            apis = ApiTemplateData(
-                buildApi = ApiVersion(29, "29"),
-                targetApi = ApiVersion(29, "29"),
-                minApi = ApiVersion(21, "21"),
-                appCompatVersion = 21,
-            ),
-            viewBindingSupport = ViewBindingSupport.NOT_SUPPORTED,
-            category = Category.Other
-        )
+        TODO()
+//        return ModuleTemplateData(
+//            projectTemplateData = ProjectTemplateData(
+//                androidXSupport = true,
+//                agpVersion = AgpVersion(6,3,0),
+//                sdkDir = File("/AndroidSdk"),
+//                language = Language.Kotlin,
+//                kotlinVersion = "1.4.10",
+//                rootDir = File("/Project"),
+//                applicationPackage = "com.example.myapplication",
+//                includedFormFactorNames = mapOf(
+//                    FormFactor.Mobile to listOf("mobile")
+//                ),
+//                debugKeystoreSha1 = null,
+//                overridePathCheck = false,
+//                isNewProject = false
+//            ),
+//            srcDir = File("/Project/src/main/kotlin/com/example/mylibrary/"),
+//            resDir = File("/Project/src/main/res/"),
+//            manifestDir = File("/Project/src/main/"),
+//            testDir = File("/Project/src/test/"),
+//            unitTestDir = File("/Project/src/test/kotlin/"),
+//            aidlDir = File("/Project/src/main/aidl/"),
+//            rootDir = File("/Project/"),
+//            isNewModule = false,
+//            name = "mylibrary",
+//            isLibrary = true,
+//            packageName = "com.example.mylibrary",
+//            formFactor = FormFactor.Mobile,
+//            themesData = ThemesData(
+//                appName = "MyApplication"
+//            ),
+//            baseFeature = null,
+//            apis = ApiTemplateData(
+//                buildApi = ApiVersion(29, "29"),
+//                targetApi = ApiVersion(29, "29"),
+//                minApi = ApiVersion(21, "21"),
+//                appCompatVersion = 21,
+//            ),
+//            viewBindingSupport = ViewBindingSupport.NOT_SUPPORTED,
+//            category = Category.Other
+//        )
     }
 
     fun getEvaluatedValue(className: String, modifier: RecipeExpressionModifier): String? {
-        val expression = listOf(
-            RecipeExpressionCommand.Dynamic(
-                parameterId = "className",
-                modifiers = listOf(
-                    modifier
-                )
-            )
-        ).toExpression()
-
-        return expression.evaluateString(createModuleTemplateData(), createParametersMap(className = className))
+        TODO()
+//        val expression = listOf(
+//            RecipeExpressionCommand.Dynamic(
+//                parameterId = "className",
+//                modifiers = listOf(
+//                    modifier
+//                )
+//            )
+//        ).toExpression()
+//
+//        return expression.evaluateString(createModuleTemplateData(), createParametersMap(className = className))
     }
 }

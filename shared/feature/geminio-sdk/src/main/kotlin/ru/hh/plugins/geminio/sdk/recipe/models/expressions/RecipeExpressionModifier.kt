@@ -26,6 +26,12 @@ enum class RecipeExpressionModifier(
      */
     UNDERSCORE_TO_CAMEL_CASE("underscoreToCamelCase"),
 
+    /** Converts a class name into a suitable function name. */
+    CAMEL_CASE_TO_LOWER_CAMEL_CASE("camelCaseToLowerCamelCase"),
+
+    /** Inverts boolean value */
+    NOT("not"),
+
     ;
 
     companion object {

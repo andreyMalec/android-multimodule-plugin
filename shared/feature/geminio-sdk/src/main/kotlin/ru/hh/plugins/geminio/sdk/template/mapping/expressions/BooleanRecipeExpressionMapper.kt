@@ -2,6 +2,8 @@ package ru.hh.plugins.geminio.sdk.template.mapping.expressions
 
 import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpression
 import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionCommand
+import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionModifier
+import ru.hh.plugins.geminio.sdk.recipe.models.expressions.RecipeExpressionModifier.*
 import ru.hh.plugins.geminio.sdk.template.aliases.AndroidStudioTemplateBooleanParameter
 import ru.hh.plugins.geminio.sdk.template.aliases.AndroidStudioTemplateParameter
 import ru.hh.plugins.geminio.sdk.template.aliases.AndroidStudioTemplateParameterBooleanLambda
@@ -42,7 +44,7 @@ private fun RecipeExpressionCommand.resolveBooleanValue(
                     "Unknown parameter or not boolean parameter for boolean expression [id: ${this.parameterId}]"
                 )
 
-            parameter.value
+            parameter.value.applyModifiers(this.modifiers)
         }
 
         RecipeExpressionCommand.ReturnTrue -> {
@@ -62,4 +64,16 @@ private fun RecipeExpressionCommand.resolveBooleanValue(
             throw IllegalArgumentException("Unexpected command for boolean parameter [$this]")
         }
     }
+}
+
+private fun Boolean.applyModifiers(modifiers: List<RecipeExpressionModifier>): Boolean {
+    var result = this
+    for (modifier in modifiers) {
+        result = when (modifier) {
+            NOT -> !result
+
+            else -> result
+        }
+    }
+    return result
 }

@@ -94,7 +94,6 @@ class ExecuteGeminioModuleTemplateAction(
 
         val wizard = ModelWizard.Builder()
             .addStep(stepModel.configureTemplateParametersStep)
-            .addStep(chooseAppsStep)
             .build()
 
         val dialog = StudioWizardDialogFactory.getWizardBuilder(wizard, WIZARD_TITLE)

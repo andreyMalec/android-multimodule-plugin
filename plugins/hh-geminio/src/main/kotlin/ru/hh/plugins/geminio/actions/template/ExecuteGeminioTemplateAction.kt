@@ -91,7 +91,7 @@ class ExecuteGeminioTemplateAction(
 
                     applyShortenReferencesAndCodeStyle()
 
-                    project.showSyncQuestionDialog(syncPerformedActionEvent = actionEvent)
+//                    project.showSyncQuestionDialog(syncPerformedActionEvent = actionEvent)
                     HHNotifications.info(message = "Finished '$actionText' template execution")
                 }
 
