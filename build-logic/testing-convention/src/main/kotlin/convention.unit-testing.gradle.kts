@@ -1,16 +1,10 @@
 @file:Suppress("UnstableApiUsage")
 
-import org.jetbrains.kotlin.gradle.plugin.KotlinBasePluginWrapper
-
-plugins {
-    id("convention.libraries")
-}
+import org.jetbrains.kotlin.gradle.plugin.KotlinBasePlugin
+import ru.hh.plugins.core_utils.libs
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
-
-    @Suppress("MagicNumber")
-    maxParallelForks = 8
 
     failFast = false
 
@@ -28,8 +22,13 @@ tasks.withType<Test>().configureEach {
     }
 }
 
-plugins.withType<KotlinBasePluginWrapper> {
+plugins.withType<KotlinBasePlugin> {
     dependencies {
-        add("testImplementation", Libs.tests.kotest)
+        add(
+            "testImplementation",
+            provider {
+                project.libs.findLibrary("kotest").get().get()
+            }
+        )
     }
 }

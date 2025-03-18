@@ -1,5 +1,25 @@
 # hh-android-plugins
 
+Форк плагинов для Android Studio [hh-android-plugins](https://github.com/hhru/android-multimodule-plugin) от hh.ru c
+некоторыми исправлениями и дополнениями, плюс сборки для альфа-версий Android Studio.
+
+### Установка
+
+Собранные плагины можно скачать с релизов на Github: [Releases](https://github.com/illarionov/geminio-android-studio-plugin/releases).
+
+Для плагина hh-geminio также создан свой репозиторий c плагинами.  
+Откройте в AS Plugins -> Manage Plugin Repositories, добавьте адрес https://plugins.pixnews.ru, перейдите 
+в Marketplace и там плагин можно будет найти и установить по имени "Geminio".
+
+### Основные изменения
+
+Основные отличия от оригинального плагина:
+
+* Сборка для стабильных и альфа-версий AS. Последняя: Android Studio Meerkat Feature Drop | 2024.3.2 Canary 1
+* В визарде добавлена галка, отключающая добавление include в *settings.gradle.kts* для сгенерированного плагина.
+
+## Оригинальный README
+
 Репозиторий с плагинами для Android Studio, разработанными в hh.ru .
 
 ### Список плагинов в репозитории
@@ -19,7 +39,7 @@
 
 1. Убедитесь, что у вас есть Intellij IDEA (минимум CE) с подключенным Plugin Dev Kit
 2. Склонировать проект
-3. Если вы скачивали Android Studio через Toolbox, или у вас не Mac OS, то вероятно вам потребуется изменить путь к локальной версии Android Studio, который указывается [вот здесь](/libraries/src/main/kotlin/ru/hh/plugins/ExternalLibrariesExtension.kt) - объект `Product.LOCAL`
+3. Если вы скачивали Android Studio через Toolbox, или у вас не Mac OS, то вероятно вам потребуется изменить путь к локальной версии Android Studio, который указывается [вот здесь](./libraries/src/main/kotlin/ru/hh/plugins/ExternalLibrariesExtension.kt) - объект `Product.LOCAL`
 4. Запустить gradle-таску `buildPlugin` в проекте нужного плагина
 5. Собранный zip-архив плагина можно подключить в Android Studio через `Preferences -> Plugins -> Install from disk`
 

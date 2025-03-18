@@ -1,8 +1,4 @@
 <idea-plugin>
-    <id>ru.hh.plugins.Geminio</id>
-    <name>Geminio</name>
-    <vendor email="p.strelchenko@hh.ru" url="https://hh.ru">hh.ru</vendor>
-
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
     <depends>org.jetbrains.android</depends>
@@ -26,6 +22,10 @@
         <notificationGroup id="ru.hh.plugins.logger"
                            displayType="NONE"/>
 
+    </extensions>
+
+    <extensions defaultExtensionNs="org.jetbrains.kotlin">
+        <supportsKotlinPluginMode supportsK2="true" />
     </extensions>
 
     <actions>

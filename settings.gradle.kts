@@ -1,52 +1,36 @@
+import org.jetbrains.intellij.platform.gradle.extensions.intellijPlatform
+
 pluginManagement {
     repositories {
         mavenCentral()
         gradlePluginPortal()
-        maven("https://packages.atlassian.com/maven/repository/public")
     }
+}
 
-    fun systemProperty(name: String): Provider<String> {
-        return providers.systemProperty(name)
-    }
-
-    val gradleIntellijPluginVersion = systemProperty("gradleIntellijPluginVersion")
-    val gradleChangelogPluginVersion = systemProperty("gradleChangelogPluginVersion")
-    val kotlinVersion = systemProperty("kotlinVersion")
-    val detektVersion = systemProperty("detektVersion")
-
-    resolutionStrategy {
-        eachPlugin {
-            val pluginId = requested.id.id
-
-            when {
-                pluginId == "org.jetbrains.intellij" ->
-                    useVersion(gradleIntellijPluginVersion.get())
-
-                pluginId == "org.jetbrains.changelog" ->
-                    useVersion(gradleChangelogPluginVersion.get())
-
-                pluginId == "io.gitlab.arturbosch.detekt" ->
-                    useVersion(detektVersion.get())
-
-                pluginId.startsWith("org.jetbrains.kotlin.") ->
-                    useVersion(kotlinVersion.get())
-            }
-        }
-    }
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.9.0"
+    id("org.jetbrains.intellij.platform.settings") version "2.3.0"
 }
 
 @Suppress("UnstableApiUsage")
 dependencyResolutionManagement {
+    repositoriesMode = RepositoriesMode.FAIL_ON_PROJECT_REPOS
+
     repositories {
         mavenCentral()
-        gradlePluginPortal()
-        maven("https://packages.atlassian.com/maven/repository/public")
+        maven("https://packages.atlassian.com/maven/repository/public") {
+            mavenContent {
+                includeGroupAndSubgroups("""com.atlassian""")
+            }
+        }
+        intellijPlatform {
+            defaultRepositories()
+        }
     }
 }
 
 rootProject.name = "hh-android-plugins"
 
-includeBuild("libraries")
 includeBuild("build-logic")
 
 // region Shared modules

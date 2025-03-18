@@ -1,14 +1,25 @@
+import org.gradle.kotlin.dsl.accessors.runtime.addDependencyTo
+
 plugins {
     id("convention.idea-plugin")
 }
 
-// TODO [build-logic] Look with a fresh eye, why this needs to be duplicated, if there is common dependency resolution in settings.gradle
-repositories {
-    mavenCentral()
-    maven("https://packages.atlassian.com/maven/repository/public")
+intellijPlatform {
+    pluginConfiguration {
+        id = "ru.hh.plugins.Carnival"
+        name = "Carnival"
+    }
 }
 
 dependencies {
+    intellijPlatform {
+        bundledPlugins(
+            "Git4Idea",
+            "org.intellij.groovy",
+            "org.intellij.intelliLang",
+        )
+    }
+
     // Core modules
     implementation(project(":shared:core:utils"))
     implementation(project(":shared:core:ui"))
@@ -22,10 +33,8 @@ dependencies {
     // Libraries
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
-    implementation("com.atlassian.jira:jira-rest-java-client-core:4.0.0") {
-        exclude(group = "org.slf4j")
-        dependencies {
-            implementation("com.atlassian.fugue:fugue:2.6.1")
-        }
+    addDependencyTo<ExternalModuleDependency>(this, "implementation", libs.jira.get()) {
+        exclude("org.slf4j")
     }
+    implementation(libs.fugue)
 }
